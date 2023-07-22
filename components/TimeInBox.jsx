@@ -2,11 +2,16 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import '../app/globals.css';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import TextInput from './TextInput';
+import { mdiAccount} from '@mdi/js';
+
 
 
 const TimeInBox = () => {
-
-    const [showInput,setShowInput] = useState(true);
+    
+    const [showInputTimeIn,setShowInputTimeIn] = useState(true);
   return (
     <>
       <div className='flex'>
@@ -20,17 +25,21 @@ const TimeInBox = () => {
       </div>
       <div className='flex justify-center flex-col items-center w-96 h-96 border-2 border-slate-800 rounded'>
         <div className='mt-18'>
-        {showInput && (
-            <p>Hello, World</p>
+        {showInputTimeIn && (
+           <TextInput 
+            placeholder="Please enter your name"
+            leftIcon={mdiAccount}
+           />
+
         )
 
         }
 
           <button
             type="button"
-            className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            className={`text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center ml-${showInputTimeIn? '14': '0'} mt-2`}
             style={{ width: '150px', height: '50px' }} 
-            onClick={()=>setShowInput((e)=>!e)}
+            onClick={()=>setShowInputTimeIn((e)=>!e)}
           >
             Time In
           </button>
