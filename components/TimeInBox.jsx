@@ -11,7 +11,27 @@ import { mdiAccount} from '@mdi/js';
 
 const TimeInBox = () => {
     
-    const [showInputTimeIn,setShowInputTimeIn] = useState(true);
+    const [showInputTimeIn,setShowInputTimeIn] = useState(false);
+    const [showInputTimeOut,setShowInputTimeOut] = useState(false);
+
+
+    const checkTimeOut = () =>{
+
+        if(showInputTimeOut){
+             setShowInputTimeOut((e)=>!e)
+        }
+        return  setShowInputTimeIn((e)=>!e);
+
+    }
+
+    const checkTimeIn = () =>{
+
+        if(showInputTimeIn){
+             setShowInputTimeIn((e)=>!e)
+        }
+        return  setShowInputTimeOut((e)=>!e);
+
+    }
   return (
     <>
       <div className='flex'>
@@ -39,7 +59,7 @@ const TimeInBox = () => {
             type="button"
             className={`text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center ml-${showInputTimeIn? '14': '0'} mt-2`}
             style={{ width: '150px', height: '50px' }} 
-            onClick={()=>setShowInputTimeIn((e)=>!e)}
+            onClick={checkTimeOut}
           >
             Time In
           </button>
@@ -47,11 +67,21 @@ const TimeInBox = () => {
         <div className='mt-4'>
           <button
             type="button"
-            className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            className={`text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-4 ml-${showInputTimeOut ? '14':'0'}`}
+            onClick={checkTimeIn}
+
             style={{ width: '150px', height: '50px' }} 
           >
             Time Out
           </button>
+          {showInputTimeOut && (
+           <TextInput 
+            placeholder="Please enter your name"
+            leftIcon={mdiAccount}
+           />
+
+        )
+         }
         </div>
       </div>
     </>
