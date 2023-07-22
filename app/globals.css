@@ -8,6 +8,24 @@
   --background-end-rgb: 0, 0, 0;
 }
 
+
+  /* Styles for the button */
+  .button-oridinary{
+    padding: 10px 20px;
+    background-color: #6060f0;
+    color: white;
+    border: none;
+    border-radius: 5px; /* Set border-radius to 0 to remove rounded corners */
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Hover effect for the button */
+  .button-oridinary:hover {
+    background-color: #3323b1;
+  }
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
