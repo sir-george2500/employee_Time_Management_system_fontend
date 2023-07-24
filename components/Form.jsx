@@ -2,7 +2,7 @@ import TextInput from './TextInput';
 import { mdiAccount , mdiSend } from '@mdi/js';
 import Icon from '@mdi/react';
 
-const Form = ({  gobacktoMenu , name ,text, value , onChange}) =>(
+const Form = ({  gobacktoMenu , name ,text, value , onChange, errorMessage}) =>(
     <>
     <div className='flex'>
      <TextInput 
@@ -24,6 +24,7 @@ const Form = ({  gobacktoMenu , name ,text, value , onChange}) =>(
      </button>
     
     </div>
+    <p className='text-red-500'>{errorMessage}</p>
     <p className='mt-2'>Leave {text} | Go back to <button className='text-green-200 hover:text-lg' onClick={gobacktoMenu}>menu</button></p>
     </>
     

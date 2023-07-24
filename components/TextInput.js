@@ -9,7 +9,7 @@ const TextInput = ({
   label,
   leftIcon,
   rightIcon,
-  errorMessage,
+ 
   onPressRightIcon,
   ...otherProps
 }) => {
@@ -53,7 +53,7 @@ const TextInput = ({
         )}
       </div>
 
-      <p className='text-red-500'>{errorMessage}</p>
+      
 
     </>
   );

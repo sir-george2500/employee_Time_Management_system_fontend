@@ -113,6 +113,7 @@ const TimeInBox = () => {
             text={"TimeIn"}
             value={formilkSendTimein.values.username}
             onChange={formilkSendTimein.handleChange}
+            errorMessage={formilkSendTimein.errors.username}
           />
           </form>
         ) : showInputTimeOut && !showInputTimeIn ? (
