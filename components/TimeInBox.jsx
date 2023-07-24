@@ -10,7 +10,7 @@ import { mdiAccount , mdiSend } from '@mdi/js';
 
 
 //Menu 
-const Menu = ({ goToTimeIn}) => (
+const Menu = ({ goToTimeIn =null, goToTimeOut = null }) => (
   <>
     <div className='flex'>
       {/* Your Time In button */}
@@ -29,6 +29,7 @@ const Menu = ({ goToTimeIn}) => (
         type="button"
         className={`text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-4`}
         style={{ width: '150px', height: '50px' }} 
+        onClick={goToTimeOut}
       >
         Time Out
       </button>
@@ -38,7 +39,7 @@ const Menu = ({ goToTimeIn}) => (
 
 //Input 
 
-const Input = ({gobacktoMenu}) =>(
+const Input = ({gobacktoMenu , text}) =>(
 <>
 <div className='flex'>
  <TextInput 
@@ -54,7 +55,7 @@ const Input = ({gobacktoMenu}) =>(
  </button>
 
 </div>
-<p>Go back to <button onClick={gobacktoMenu}>menu</button></p>
+<p>Leave {text} | Go back to <button onClick={gobacktoMenu}>menu</button></p>
 </>
 
 );
@@ -68,6 +69,11 @@ const TimeInBox = () => {
     const gobacktoMenuTimeIn = () => {
       setShowInputTimeIn((e)=>!e);
       setShowInputTimeOut(false);
+    };
+
+    const gobacktoMenuTimeOut = () => {
+      setShowInputTimeOut((e)=>!e);
+      setShowInputTimeIn(false);
     };
 
 
@@ -90,10 +96,17 @@ const TimeInBox = () => {
         {showInputTimeIn && !showInputTimeOut ?(
          <Input  
           gobacktoMenu={gobacktoMenuTimeIn}
+          text={"TimeIn"}
+         />
+        ):showInputTimeOut && !showInputTimeIn?(
+          <Input  
+          gobacktoMenu={gobacktoMenuTimeOut}
+          text={"TimeOut"}
          />
         ):(
          <Menu
           goToTimeIn={gobacktoMenuTimeIn}
+          goToTimeOut={gobacktoMenuTimeOut}
          />
         )
 
