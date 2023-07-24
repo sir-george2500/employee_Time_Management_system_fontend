@@ -5,9 +5,59 @@ import '../app/globals.css';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import TextInput from './TextInput';
-import { mdiAccount} from '@mdi/js';
+import Icon from '@mdi/react';
+import { mdiAccount , mdiSend } from '@mdi/js';
 
 
+//Menu 
+const Menu = ({ goToTimeIn}) => (
+  <>
+    <div className='flex'>
+      {/* Your Time In button */}
+      <button
+        type="button"
+        className={`text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center  mt-2`}
+        style={{ width: '150px', height: '50px' }} 
+        onClick={goToTimeIn}
+      >
+        Time In
+      </button>
+    </div>
+    <div className='mt-4'>
+      {/* Your Time Out button */}
+      <button
+        type="button"
+        className={`text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-4`}
+        style={{ width: '150px', height: '50px' }} 
+      >
+        Time Out
+      </button>
+    </div>
+  </>
+);
+
+//Input 
+
+const Input = ({gobacktoMenu}) =>(
+<>
+<div className='flex'>
+ <TextInput 
+  placeholder="Please enter your name"
+  leftIcon={mdiAccount}
+ />
+ <button   className='mt-0.8 ml-2'>
+ <Icon 
+ path={mdiSend} 
+ size={1} 
+ color='#D1D5DB'     
+ />
+ </button>
+
+</div>
+<p>Go back to <button onClick={gobacktoMenu}>menu</button></p>
+</>
+
+);
 
 const TimeInBox = () => {
     
@@ -15,23 +65,15 @@ const TimeInBox = () => {
     const [showInputTimeOut,setShowInputTimeOut] = useState(false);
 
 
-    const checkTimeOut = () =>{
+    const gobacktoMenuTimeIn = () => {
+      setShowInputTimeIn((e)=>!e);
+      setShowInputTimeOut(false);
+    };
 
-        if(showInputTimeOut){
-             setShowInputTimeOut((e)=>!e)
-        }
-        return  setShowInputTimeIn((e)=>!e);
 
-    }
+   
 
-    const checkTimeIn = () =>{
 
-        if(showInputTimeIn){
-             setShowInputTimeIn((e)=>!e)
-        }
-        return  setShowInputTimeOut((e)=>!e);
-
-    }
   return (
     <>
       <div className='flex'>
@@ -45,44 +87,19 @@ const TimeInBox = () => {
       </div>
       <div className='flex justify-center flex-col items-center w-96 h-96 border-2 border-slate-800 rounded'>
         <div className='mt-18'>
-        {showInputTimeIn && (
-           <TextInput 
-            placeholder="Please enter your name"
-            leftIcon={mdiAccount}
-           />
-
+        {showInputTimeIn && !showInputTimeOut ?(
+         <Input  
+          gobacktoMenu={gobacktoMenuTimeIn}
+         />
+        ):(
+         <Menu
+          goToTimeIn={gobacktoMenuTimeIn}
+         />
         )
 
         }
-
-          <button
-            type="button"
-            className={`text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center ml-${showInputTimeIn? '14': '0'} mt-2`}
-            style={{ width: '150px', height: '50px' }} 
-            onClick={checkTimeOut}
-          >
-            Time In
-          </button>
-        </div>
-        <div className='mt-4'>
-          <button
-            type="button"
-            className={`text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-4 ml-${showInputTimeOut ? '14':'0'}`}
-            onClick={checkTimeIn}
-
-            style={{ width: '150px', height: '50px' }} 
-          >
-            Time Out
-          </button>
-          {showInputTimeOut && (
-           <TextInput 
-            placeholder="Please enter your name"
-            leftIcon={mdiAccount}
-           />
-
-        )
-         }
-        </div>
+       
+        </div>      
       </div>
     </>
   );
