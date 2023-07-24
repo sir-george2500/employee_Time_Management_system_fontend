@@ -18,7 +18,7 @@ const Form = ({gobacktoMenu , text}) =>(
      </button>
     
     </div>
-    <p>Leave {text} | Go back to <button onClick={gobacktoMenu}>menu</button></p>
+    <p className='mt-2'>Leave {text} | Go back to <button className='text-green-200 hover:text-lg' onClick={gobacktoMenu}>menu</button></p>
     </>
     
     );
