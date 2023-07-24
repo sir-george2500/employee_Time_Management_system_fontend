@@ -1,7 +1,9 @@
 
 
+
 const Menu = ({ goToTimeIn =null, goToTimeOut = null }) => (
   <>
+    
     <div className='flex'>
       {/* Your Time In button */}
       <button
