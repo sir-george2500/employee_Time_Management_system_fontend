@@ -56,6 +56,40 @@ const TimeInBox = () => {
     setCurrentTime(getCurrentTime());
   }, [currentTime]);
 
+  //handle Validation 
+  const validationSchema = yup.object({
+    username: yup
+      .string('Enter your username')
+      .required('Username is required'),
+  });
+
+
+  //formilkSendTimein
+  const formilkSendTimein = useFormik({
+    initialValues: {
+      username: '',
+     
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values,{resetForm}) => {
+      console.log(values)
+      return resetForm();
+    },
+  });
+
+  const formilkSendTimeOut = useFormik({
+    initialValues: {
+      username: '',
+     
+    },
+    // validationSchema: validationSchema,
+    onSubmit: async (values,{resetForm}) => {
+      console.log(values);
+
+      
+    },
+  });
+
   return (
     <>
       <div className='flex'>
@@ -72,15 +106,22 @@ const TimeInBox = () => {
         <h3 className='mb-3 text-5xl'>{currentTime}</h3>
         <div className='mt-18'>
         {showInputTimeIn && !showInputTimeOut ? (
+          <form onSubmit={formilkSendTimein.handleSubmit}>
           <Form
+           name="username"
             gobacktoMenu={gobacktoMenuTimeIn}
             text={"TimeIn"}
+            value={formilkSendTimein.values.username}
+            onChange={formilkSendTimein.handleChange}
           />
+          </form>
         ) : showInputTimeOut && !showInputTimeIn ? (
           <Form
             gobacktoMenu={gobacktoMenuTimeOut}
             text={"TimeOut"}
+           
           />
+         
         ) : (
           <Menu
             goToTimeIn={gobacktoMenuTimeIn}

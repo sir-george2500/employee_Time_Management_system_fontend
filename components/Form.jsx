@@ -2,14 +2,20 @@ import TextInput from './TextInput';
 import { mdiAccount , mdiSend } from '@mdi/js';
 import Icon from '@mdi/react';
 
-const Form = ({gobacktoMenu , text}) =>(
+const Form = ({  gobacktoMenu , name ,text, value , onChange}) =>(
     <>
     <div className='flex'>
      <TextInput 
+      name={name}
       placeholder="Please enter your name"
       leftIcon={mdiAccount}
+      value = {value}
+      onChange ={onChange}
      />
-     <button   className='mt-0.8 ml-2'>
+     <button  
+    type='submit'
+     className='mt-0.8 ml-2'
+     >
      <Icon 
      path={mdiSend} 
      size={1} 
