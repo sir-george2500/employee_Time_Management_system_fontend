@@ -7,6 +7,7 @@ import * as yup from 'yup';
 
 import Form from './Form';
 import Menu from './Menu';
+import sendRequest from '@/app/services/sendRequest';
 
 const TimeInBox = () => {
   const [showInputTimeIn, setShowInputTimeIn] = useState(false);
@@ -16,7 +17,8 @@ const TimeInBox = () => {
     setShowInputTimeIn((e) => !e);
     setShowInputTimeOut(false);
   };
-
+  
+  
   const gobacktoMenuTimeOut = () => {
     setShowInputTimeOut((e) => !e);
     setShowInputTimeIn(false);
@@ -56,7 +58,7 @@ const TimeInBox = () => {
     setCurrentTime(getCurrentTime());
   }, [currentTime]);
 
-  //handle Validation 
+  
   const validationSchema = yup.object({
     username: yup
       .string('Enter your username')
@@ -64,7 +66,10 @@ const TimeInBox = () => {
   });
 
 
-  //formilkSendTimein
+  /**
+   * @param -> username
+   * @return -> void 
+   */
   const formilkSendTimein = useFormik({
     initialValues: {
       username: '',
@@ -72,8 +77,34 @@ const TimeInBox = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values,{resetForm}) => {
-      console.log(values)
-      return resetForm();
+      //format the username
+      const username = values.username;
+      const usernameWithoutWhiteSpace = username.replace(/\s/g, '\\t');
+  
+      //get me the day of the week and time
+      const daysOfWeek = ["Sun", "Mon", "Tue", "W", "Thu", "Fri", "Sat"];
+      const currentYear = new Date().getFullYear();
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth();
+      const currentDay = currentDate.getDay();
+      const currentDayString = daysOfWeek[currentDate.getDay()];
+      const userTime =currentYear+'-'+currentMonth+'-'+currentDay+'-'+currentDayString+'-'+currentTime;
+
+      const user_data = {
+        username:usernameWithoutWhiteSpace,
+        time_in:userTime.toString()
+      }
+
+      try {
+           await  sendRequest('timeIn','POST',user_data);
+           console.log("Successful")
+           return resetForm();
+      } catch (error) {
+           console.log(error.message);
+      }
+
+      console.log(user_data);
+      
     },
   });
 
