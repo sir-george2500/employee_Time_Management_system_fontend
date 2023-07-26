@@ -9,7 +9,7 @@
 const sendRequest = async (endpoint, method, body = null) => {
     const baseUrl = 'http://127.0.0.1:8000';
     const url = `${baseUrl}/${endpoint}`;
-    try {
+    
       const options = {
         method,
         headers: {
@@ -18,18 +18,23 @@ const sendRequest = async (endpoint, method, body = null) => {
 
         body: body ? JSON.stringify(body) : null,
       };
-      const response = await fetch(url, options);
-  
-      if (response.ok) {
-        return response.json();
-      } else {
-        const errorData = await response.json();
-        throw new Error(errorData.error);
-      }
-    } catch (error) {
-      throw new Error('An error occurred while making the request: ' + error.message);
-    }
-  };
-  
+     
+     
+        const response = await fetch(url, options);
+      
+       
+        if (response.ok) {
+          return response.json();
+        } else {
+          const errorStatus = response.status;
+          const errorData = await response.json();
+          const errorMessage = errorData.detail; // Assuming the backend returns the error message in the 'detail' field
+          throw new Error('Error Status: ' + errorStatus + ', Message: ' + errorMessage);
+        }
+
+      
+      };
+   
+
   export default sendRequest;
   
