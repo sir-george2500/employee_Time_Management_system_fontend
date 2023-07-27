@@ -19,17 +19,16 @@ const sendRequest = async (endpoint, method, body = null) => {
         body: body ? JSON.stringify(body) : null,
       };
      
-     
+      
         const response = await fetch(url, options);
       
        
         if (response.ok) {
-          return response.json();
+          return response.status;
         } else {
           const errorStatus = response.status;
-          const errorData = await response.json();
-          const errorMessage = errorData.detail; // Assuming the backend returns the error message in the 'detail' field
-          throw new Error('Error Status: ' + errorStatus + ', Message: ' + errorMessage);
+          return errorStatus;
+          // Assuming the backend returns the error message in the 'detail' field
         }
 
       

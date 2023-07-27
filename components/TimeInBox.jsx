@@ -4,10 +4,13 @@ import React, { useState, useEffect } from 'react';
 import '../app/globals.css';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-
+import { useLottie } from "lottie-react";
+import fail from "../public/animations/fail.json"
 import Form from './Form';
 import Menu from './Menu';
 import sendRequest from '@/app/services/sendRequest';
+
+
 
 const TimeInBox = () => {
   const [showInputTimeIn, setShowInputTimeIn] = useState(false);
@@ -17,14 +20,28 @@ const TimeInBox = () => {
     setShowInputTimeIn((e) => !e);
     setShowInputTimeOut(false);
   };
+
+  const style = {
+    height:350,
+    marginTop:"30px"
+  }
   
-  
+  //get me the animation data
+  const options = {
+    animationData: fail,
+    loop: 1
+  };
+
+  const { View } = useLottie(options,style);
+
   const gobacktoMenuTimeOut = () => {
     setShowInputTimeOut((e) => !e);
     setShowInputTimeIn(false);
   };
 
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
+  const [showAnimation,setShowAnimation] =useState(false);
+  const [errorMessage,setErrorMessage]=('');
 
   // Helper function to get the current time
   function getCurrentTime() {
@@ -95,15 +112,20 @@ const TimeInBox = () => {
         time_in:userTime.toString()
       }
 
-      try {
-           await  sendRequest('timeIn','POST',user_data);
-           console.log("Successful")
-           return resetForm();
-      } catch (error) {
-           console.log(error.message);
-      }
+     
+           const reponse = await  sendRequest('timeIn','POST',user_data);
+           console.log(reponse);
 
-      console.log(user_data);
+           if(reponse==409){
+            console.log("User already log their Time in for today");
+           }else if(reponse==201){
+
+             console.log("Success");
+
+             resetForm();
+           }else {
+             throw new Error("User Time Could not be login "+reponse);
+           }
       
     },
   });
@@ -123,6 +145,14 @@ const TimeInBox = () => {
 
   return (
     <>
+    {true ? (
+
+    <> 
+    {View}
+    <p className=''>This is the Error {errorMessage}</p>
+    </> 
+    ):(
+      <>
       <div className='flex'>
         <Image
           src={require("../public/image/svl_logo.png")}
@@ -133,7 +163,7 @@ const TimeInBox = () => {
         <h1 className='flex-1 text-3xl pt-9'>Time System</h1>
       </div>
       <div className='flex justify-center flex-col items-center w-96 h-96 border-2 border-slate-800 rounded bg-slate-600'>
-
+        
         <h3 className='mb-3 text-5xl'>{currentTime}</h3>
         <div className='mt-18'>
         {showInputTimeIn && !showInputTimeOut ? (
@@ -164,6 +194,9 @@ const TimeInBox = () => {
         }
         </div>      
       </div>
+      </>
+    )}
+
     </>
   );
 };
