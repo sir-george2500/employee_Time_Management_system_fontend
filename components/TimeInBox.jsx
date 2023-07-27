@@ -8,6 +8,7 @@ import { useLottie } from "lottie-react";
 import fail from "../public/animations/fail.json"
 import Form from './Form';
 import Menu from './Menu';
+import Modal from "./Modal";
 import sendRequest from '@/app/services/sendRequest';
 
 
@@ -21,15 +22,27 @@ const TimeInBox = () => {
     setShowInputTimeOut(false);
   };
 
+  //Modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   const style = {
-    height:350,
-    marginTop:"30px"
+    height:250,
+    marginTop:"30px",
+    width:350
   }
   
   //get me the animation data
   const options = {
     animationData: fail,
-    loop: 1
+    loop:true
   };
 
   const { View } = useLottie(options,style);
@@ -41,7 +54,7 @@ const TimeInBox = () => {
 
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
   const [showAnimation,setShowAnimation] =useState(false);
-  const [errorMessage,setErrorMessage]=('');
+  const [errorMessage,setErrorMessage]=useState('Normal Error Message');
 
   // Helper function to get the current time
   function getCurrentTime() {
@@ -145,14 +158,18 @@ const TimeInBox = () => {
 
   return (
     <>
-    {true ? (
-
-    <> 
-    {View}
-    <p className=''>This is the Error {errorMessage}</p>
-    </> 
-    ):(
-      <>
+     <div>
+      <h1>Custom Modal Example</h1>
+      <button onClick={handleOpenModal}>Open Modal</button>
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <div className='w-100'>
+        <>
+        {View}
+        <p className='text-black'>{errorMessage}</p>
+        </>
+        </div>
+      </Modal>
+    </div>
       <div className='flex'>
         <Image
           src={require("../public/image/svl_logo.png")}
@@ -194,9 +211,6 @@ const TimeInBox = () => {
         }
         </div>      
       </div>
-      </>
-    )}
-
     </>
   );
 };
