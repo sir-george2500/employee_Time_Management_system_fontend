@@ -46,6 +46,7 @@ const TimeInBox = () => {
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
   const [errorMessage,setErrorMessage]=useState('');
   const [successMsg,setSucessMsg]=useState('');
+  const [animationCheck ,setAnimationCheck ] = useState(true)
   // Helper function to get the current time
   function getCurrentTime() {
     const currentTime = new Date();
@@ -124,7 +125,8 @@ const TimeInBox = () => {
             handleOpenModal();
            }else if(reponse==201){
 
-             setSucessMsg("Success");
+             setSucessMsg("Successfully Logged Time in");
+             setAnimationCheck(false)
              handleOpenModal();
             return  resetForm();
            }else {
@@ -154,7 +156,7 @@ const TimeInBox = () => {
         <div className='w-100'>
        
         {/*Check if it Error or Sucess*/}
-        { false ?(
+        { animationCheck?(
          <ErrorView 
           errorMessage={errorMessage}
          />
