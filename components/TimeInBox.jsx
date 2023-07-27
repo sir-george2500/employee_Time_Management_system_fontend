@@ -5,11 +5,12 @@ import '../app/globals.css';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useLottie } from "lottie-react";
-import fail from "../public/animations/fail.json"
+
 import Form from './Form';
 import Menu from './Menu';
 import Modal from "./Modal";
 import sendRequest from '@/app/services/sendRequest';
+import { ErrorView } from './ErrorView';
 
 
 
@@ -33,19 +34,8 @@ const TimeInBox = () => {
     setIsModalOpen(false);
   };
 
-  const style = {
-    height:250,
-    marginTop:"30px",
-    width:350
-  }
+ 
   
-  //get me the animation data
-  const options = {
-    animationData: fail,
-    loop:true
-  };
-
-  const { View } = useLottie(options,style);
 
   const gobacktoMenuTimeOut = () => {
     setShowInputTimeOut((e) => !e);
@@ -53,8 +43,7 @@ const TimeInBox = () => {
   };
 
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
-  const [showAnimation,setShowAnimation] =useState(false);
-  const [errorMessage,setErrorMessage]=useState('Normal Error Message');
+  const [errorMessage,setErrorMessage]=useState('');
 
   // Helper function to get the current time
   function getCurrentTime() {
@@ -130,12 +119,13 @@ const TimeInBox = () => {
            console.log(reponse);
 
            if(reponse==409){
-            console.log("User already log their Time in for today");
+            setErrorMessage("User already log their Time in for today");
+            handleOpenModal();
            }else if(reponse==201){
 
              console.log("Success");
 
-             resetForm();
+            return  resetForm();
            }else {
              throw new Error("User Time Could not be login "+reponse);
            }
@@ -159,14 +149,24 @@ const TimeInBox = () => {
   return (
     <>
      <div>
-      <h1>Custom Modal Example</h1>
-      <button onClick={handleOpenModal}>Open Modal</button>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <div className='w-100'>
-        <>
-        {View}
-        <p className='text-black'>{errorMessage}</p>
-        </>
+       
+        {/*Check if it Error or Sucess*/}
+        { true ?(
+         <ErrorView 
+          errorMessage={errorMessage}
+         />
+        ):(
+          <>
+          {View}
+          <p className='text-black  text-center'> {errorMessage}</p>
+          </>
+        )
+
+        }
+      
+      
         </div>
       </Modal>
     </div>
