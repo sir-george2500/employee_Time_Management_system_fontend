@@ -11,6 +11,7 @@ import Menu from './Menu';
 import Modal from "./Modal";
 import sendRequest from '@/app/services/sendRequest';
 import { ErrorView } from './ErrorView';
+import { SucessView } from './SuccessView';
 
 
 
@@ -44,7 +45,7 @@ const TimeInBox = () => {
 
   const [currentTime, setCurrentTime] = useState(getCurrentTime());
   const [errorMessage,setErrorMessage]=useState('');
-
+  const [successMsg,setSucessMsg]=useState('');
   // Helper function to get the current time
   function getCurrentTime() {
     const currentTime = new Date();
@@ -123,8 +124,8 @@ const TimeInBox = () => {
             handleOpenModal();
            }else if(reponse==201){
 
-             console.log("Success");
-
+             setSucessMsg("Success");
+             handleOpenModal();
             return  resetForm();
            }else {
              throw new Error("User Time Could not be login "+reponse);
@@ -153,15 +154,14 @@ const TimeInBox = () => {
         <div className='w-100'>
        
         {/*Check if it Error or Sucess*/}
-        { true ?(
+        { false ?(
          <ErrorView 
           errorMessage={errorMessage}
          />
         ):(
-          <>
-          {View}
-          <p className='text-black  text-center'> {errorMessage}</p>
-          </>
+          <SucessView
+           msg={successMsg}
+          />
         )
 
         }
