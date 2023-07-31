@@ -1,7 +1,16 @@
+import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 
 
-const Menu = ({ goToTimeIn =null, goToTimeOut = null }) => (
+const Menu = ({ goToTimeIn =null, goToTimeOut = null }) => {
+
+  const router = useRouter();
+
+  const handleGoTable = () => {
+    router.push('/users/table');
+  };
+ return (
   <>
     
     <div className='flex'>
@@ -25,8 +34,11 @@ const Menu = ({ goToTimeIn =null, goToTimeOut = null }) => (
       >
         Time Out
       </button>
+      <p>Check the List <Link href="users/table">List</Link></p>
     </div>
   </>
 );
+
+ }
 
 export default Menu;
