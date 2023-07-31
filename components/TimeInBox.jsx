@@ -116,6 +116,8 @@ const TimeInBox = () => {
         time_in:userTime.toString()
       }
 
+      
+
      
            const reponse = await  sendRequest('timeIn','POST',user_data);
            console.log(reponse);
@@ -143,8 +145,41 @@ const TimeInBox = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values,{resetForm}) => {
-      console.log(values);
+      const username = values.username;
+      const usernameWithoutWhiteSpace = username.replace(/\s/g, '\\t');
+  
+      //get me the day of the week and time
+      const daysOfWeek = ["Sun", "Mon", "Tue", "W", "Thu", "Fri", "Sat"];
+      const currentYear = new Date().getFullYear();
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth();
+      const currentDay = currentDate.getDay();
+      const currentDayString = daysOfWeek[currentDate.getDay()];
+      const userTime =currentYear+'-'+currentMonth+'-'+currentDay+'-'+currentDayString+'-'+currentTime;
 
+      const user_data = {
+        username:usernameWithoutWhiteSpace,
+        time_out:userTime.toString()
+      }
+
+      console.log(user_data)
+
+      const reponse = await  sendRequest('timeOut','POST',user_data);
+      console.log(reponse);
+
+
+      if(reponse==409){
+        setErrorMessage("User haven't yet Sign");
+        handleOpenModal();
+       }else if(reponse==201){
+
+         setSucessMsg("Successfully Logged Time Out");
+         setAnimationCheck(false)
+         handleOpenModal();
+        return  resetForm();
+       }else {
+         throw new Error("User Time Could not be log Out "+reponse);
+       }
       
     },
   });
@@ -197,13 +232,16 @@ const TimeInBox = () => {
           />
           </form>
         ) : showInputTimeOut && !showInputTimeIn ? (
+          <form  onSubmit={formilkSendTimeOut.handleSubmit}>
           <Form
             name="username"
             gobacktoMenu={gobacktoMenuTimeOut}
             text={"TimeOut"}
             value={formilkSendTimeOut.values.username}
-            onChange={formilkSendTimeOut.handleChange}           
+            onChange={formilkSendTimeOut.handleChange}
+            errorMessage={formilkSendTimeOut.errors.username}           
           />
+          </form>
          
         ) : (
           <Menu
