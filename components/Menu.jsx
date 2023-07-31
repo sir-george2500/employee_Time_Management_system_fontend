@@ -1,15 +1,10 @@
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
 
 
 
 const Menu = ({ goToTimeIn =null, goToTimeOut = null }) => {
 
-  const router = useRouter();
-
-  const handleGoTable = () => {
-    router.push('/users/table');
-  };
+ 
  return (
   <>
     
@@ -34,7 +29,7 @@ const Menu = ({ goToTimeIn =null, goToTimeOut = null }) => {
       >
         Time Out
       </button>
-      <p>Check the List <Link href="users/table">List</Link></p>
+      <p className="p-5">Check the<Link href="users/table" className="text-green-200 hover:text-lg"> List</Link></p>
     </div>
   </>
 );

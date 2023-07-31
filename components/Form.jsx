@@ -1,8 +1,18 @@
 import TextInput from './TextInput';
 import { mdiAccount , mdiSend } from '@mdi/js';
 import Icon from '@mdi/react';
+import { useRouter } from 'next/navigation';
 
-const Form = ({  gobacktoMenu , name ,text, value , onChange, errorMessage}) =>(
+const Form = ({  gobacktoMenu , name ,text, value , onChange, errorMessage}) =>{
+
+    const router = useRouter();
+
+    const handleNavigation =() =>{
+        return router.push("users/table");
+    }
+
+
+    return (
     <>
     <div className='flex'>
      <TextInput 
@@ -26,8 +36,11 @@ const Form = ({  gobacktoMenu , name ,text, value , onChange, errorMessage}) =>(
     </div>
     <p className='text-red-500'>{errorMessage}</p>
     <p className='mt-2'>Leave {text} | Go back to <button className='text-green-200 hover:text-lg' onClick={gobacktoMenu}>menu</button></p>
+    <p className='mt-2'>Check the <button className='text-green-200 hover:text-lg mb-5' onClick={handleNavigation}> List</button></p>
+
     </>
     
-    );
+    )
+};
 
 export default Form

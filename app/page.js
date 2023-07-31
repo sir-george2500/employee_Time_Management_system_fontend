@@ -1,5 +1,6 @@
 import TimeInBox from '@/components/TimeInBox'
 import Image from 'next/image'
+import Link from 'next/navigation'
 
 export default function Home() {
   return (

@@ -141,7 +141,7 @@ const TimeInBox = () => {
       username: '',
      
     },
-    // validationSchema: validationSchema,
+    validationSchema: validationSchema,
     onSubmit: async (values,{resetForm}) => {
       console.log(values);
 
@@ -198,9 +198,11 @@ const TimeInBox = () => {
           </form>
         ) : showInputTimeOut && !showInputTimeIn ? (
           <Form
+            name="username"
             gobacktoMenu={gobacktoMenuTimeOut}
             text={"TimeOut"}
-           
+            value={formilkSendTimeOut.values.username}
+            onChange={formilkSendTimeOut.handleChange}           
           />
          
         ) : (
