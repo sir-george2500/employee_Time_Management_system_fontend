@@ -107,7 +107,7 @@ const TimeInBox = () => {
       const currentYear = new Date().getFullYear();
       const currentDate = new Date();
       const currentMonth = currentDate.getMonth();
-      const currentDay = currentDate.getDay();
+      const currentDay = currentDate.getDate();
       const currentDayString = daysOfWeek[currentDate.getDay()];
       const userTime =currentYear+'-'+currentMonth+'-'+currentDay+'-'+currentDayString+'-'+currentTime;
 
@@ -115,6 +115,9 @@ const TimeInBox = () => {
         username:usernameWithoutWhiteSpace,
         time_in:userTime.toString()
       }
+
+      console.log(user_data);
+      console.log(currentMonth);
 
       
 
@@ -155,7 +158,7 @@ const TimeInBox = () => {
       const currentMonth = currentDate.getMonth();
       const currentDay = currentDate.getDay();
       const currentDayString = daysOfWeek[currentDate.getDay()];
-      const userTime =currentYear+'-'+currentMonth+'-'+currentDay+'-'+currentDayString+'-'+currentTime;
+      const userTime =currentYear+'-'+Number(currentMonth)+'-'+currentDay+'-'+currentDayString+'-'+currentTime;
 
       const user_data = {
         username:usernameWithoutWhiteSpace,
