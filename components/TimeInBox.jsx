@@ -103,6 +103,7 @@ const TimeInBox = () => {
     onSubmit: async (values,{resetForm}) => {
       //format the username
       const username = values.username;
+      const userRole = values.userType;
       const usernameWithoutWhiteSpace = username.replace(/\s/g, '\\t');
   
       //get me the day of the week and time
@@ -116,11 +117,12 @@ const TimeInBox = () => {
 
       const user_data = {
         username:usernameWithoutWhiteSpace,
-        time_in:userTime.toString()
+        time_in:userTime.toString(),
+        role: Number(userRole)
       }
 
       console.log(user_data);
-      console.log(currentMonth);
+   
 
       
 
