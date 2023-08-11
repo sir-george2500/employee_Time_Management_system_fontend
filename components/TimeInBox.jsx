@@ -119,12 +119,8 @@ const TimeInBox = () => {
         username:usernameWithoutWhiteSpace,
         time_in:userTime.toString(),
         role: Number(userRole)
-      }
-
-      console.log(user_data);
-   
-
-      
+      }   
+     
 
      
            const reponse = await  sendRequest('timeIn','POST',user_data);
@@ -149,11 +145,13 @@ const TimeInBox = () => {
   const formilkSendTimeOut = useFormik({
     initialValues: {
       username: '',
+      userType:''
      
     },
     validationSchema: validationSchema,
     onSubmit: async (values,{resetForm}) => {
       const username = values.username;
+      const userRole = values.userType;
       const usernameWithoutWhiteSpace = username.replace(/\s/g, '\\t');
   
       //get me the day of the week and time
@@ -164,10 +162,11 @@ const TimeInBox = () => {
       const currentDay = currentDate.getDay();
       const currentDayString = daysOfWeek[currentDate.getDay()];
       const userTime =currentYear+'-'+Number(currentMonth)+'-'+currentDay+'-'+currentDayString+'-'+currentTime;
-
+      
       const user_data = {
         username:usernameWithoutWhiteSpace,
-        time_out:userTime.toString()
+        time_out:userTime.toString(),
+        role: Number(userRole)
       }
 
       console.log(user_data)
@@ -181,12 +180,12 @@ const TimeInBox = () => {
         handleOpenModal();
        }else if(reponse==201){
 
-         setSucessMsg("Successfully Logged Time Out");
-         setAnimationCheck(false)
-         handleOpenModal();
+        setSucessMsg("Successfully Logged Time Out");
+        setAnimationCheck(false)
+        handleOpenModal();
         return  resetForm();
        }else {
-         throw new Error("User Time Could not be log Out "+reponse);
+        throw new Error("User Time Could not be log Out "+reponse);
        }
       
     },
@@ -249,7 +248,9 @@ const TimeInBox = () => {
             text={"TimeOut"}
             value={formilkSendTimeOut.values.username}
             onChange={formilkSendTimeOut.handleChange}
-            errorMessage={formilkSendTimeOut.errors.username} 
+            errorMessage={formilkSendTimeOut.errors.username}
+            errorforSelectOption={formilkSendTimeOut.errors.userType} 
+            formik={formilkSendTimeOut}
           
           />
           </form>
