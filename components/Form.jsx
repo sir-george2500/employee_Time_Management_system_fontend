@@ -3,17 +3,19 @@ import { mdiAccount , mdiSend } from '@mdi/js';
 import Icon from '@mdi/react';
 import { useRouter } from 'next/navigation';
 
-const Form = ({  gobacktoMenu , name ,text, value , onChange, errorMessage}) =>{
 
-    const router = useRouter();
+const Form = ({ gobacktoMenu, name, text, value, errorMessage, onChange, errorforSelectOption,formik}) => {
+ // State to store selected option
 
-    const handleNavigation =() =>{
-        return router.push("users/table");
-    }
+  const router = useRouter();
+
+  const handleNavigation = () => {
+    return router.push("users/table");
+  };
 
 
-    return (
-       <>
+  return (
+    <>
       <div className='flex'>
         <TextInput
           name={name}
@@ -22,19 +24,26 @@ const Form = ({  gobacktoMenu , name ,text, value , onChange, errorMessage}) =>{
           value={value}
           onChange={onChange}
         />
-       
+
         <button type='submit' className='mt-0.8 ml-2'>
           <Icon path={mdiSend} size={1} color='#D1D5DB' />
         </button>
       </div>
       <select
-          className='text-slate-950  bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500'
-        >
-          <option value='1'>Staff</option>
-          <option value='2'>Students</option>
-          <option value='3'>Other</option>
-        </select>
+        className='text-slate-950  bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500'
+        value={formik.values.userType}// Set selected value
+        onChange={(event) => {
+          formik.handleChange(event); // Update Formik's values
+          formik.setFieldValue('userType', event.target.value); // Update Formik's userType field
+        }}
+      >
+        <option value="">Select Role</option>
+        <option value='1'>Staff</option>
+        <option value='2'>Students</option>
+        <option value='3'>Visitor</option>
+      </select>
       <p className='text-red-500'>{errorMessage}</p>
+      <p className='text-red-500'>{errorforSelectOption}</p>
       <p className='mt-2'>
         Leave {text} | Go back to{' '}
         <button className='text-green-200 hover:text-lg' onClick={gobacktoMenu}>
@@ -51,8 +60,7 @@ const Form = ({  gobacktoMenu , name ,text, value , onChange, errorMessage}) =>{
         </button>
       </p>
     </>
-    
-    )
+  );
 };
 
-export default Form
+export default Form;

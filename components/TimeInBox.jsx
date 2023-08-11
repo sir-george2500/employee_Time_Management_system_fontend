@@ -18,6 +18,7 @@ import { SucessView } from './SuccessView';
 const TimeInBox = () => {
   const [showInputTimeIn, setShowInputTimeIn] = useState(false);
   const [showInputTimeOut, setShowInputTimeOut] = useState(false);
+  
 
   const gobacktoMenuTimeIn = () => {
     setShowInputTimeIn((e) => !e);
@@ -84,6 +85,7 @@ const TimeInBox = () => {
     username: yup
       .string('Enter your username')
       .required('Username is required'),
+    userType: yup.string().required('User type is required'),
   });
 
 
@@ -94,6 +96,7 @@ const TimeInBox = () => {
   const formilkSendTimein = useFormik({
     initialValues: {
       username: '',
+      userType:''
      
     },
     validationSchema: validationSchema,
@@ -232,6 +235,8 @@ const TimeInBox = () => {
             value={formilkSendTimein.values.username}
             onChange={formilkSendTimein.handleChange}
             errorMessage={formilkSendTimein.errors.username}
+            errorforSelectOption={formilkSendTimein.errors.userType}
+            formik={formilkSendTimein}  
           />
           </form>
         ) : showInputTimeOut && !showInputTimeIn ? (
@@ -242,7 +247,8 @@ const TimeInBox = () => {
             text={"TimeOut"}
             value={formilkSendTimeOut.values.username}
             onChange={formilkSendTimeOut.handleChange}
-            errorMessage={formilkSendTimeOut.errors.username}           
+            errorMessage={formilkSendTimeOut.errors.username} 
+          
           />
           </form>
          
