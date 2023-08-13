@@ -34,13 +34,13 @@ const Table = () => {
     <div className='p-5'>
       <center>
     <div className="flex space-evenly w-60 dark:bg-gray-700 mb-2 p-2 rounded-l-lg rounded-r-lg">
-      <div className={`items-center text-center flex-grow ${track == true ? 'bg-slate-800' :  'dark:bg-gray-700' }  py-2 rounded-l-lg rounded-r-lg`}
+      <div className={`items-center text-center flex-grow ${track == true ? 'bg-slate-800 border-solid border-t border-r border-l border-b  border-sky-500' :  'dark:bg-gray-700 text-zinc-500' }  py-2 rounded-l-lg rounded-r-lg`}
        onClick={handleTrack}
       >
         Student
       </div>
 
-      <div className={`items-center text-center flex-grow ${track == false ? 'bg-slate-800' :  'dark:bg-gray-700'} py-2 rounded-l-lg rounded-r-lg`}
+      <div className={`items-center text-center flex-grow ${track == false ? 'bg-slate-800 border-solid border-t border-r border-l border-b  border-sky-500' :  'dark:bg-gray-700 text-zinc-500'} py-2 rounded-l-lg rounded-r-lg`}
         onClick={handleTrack}
       >
         Staff
