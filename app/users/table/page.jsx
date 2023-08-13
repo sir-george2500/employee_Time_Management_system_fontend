@@ -6,6 +6,12 @@ const Table = () => {
   const [responseData, setResponseData] = useState(null);
   const [error, setError] = useState(null);
 
+  const [track,setTrack] = useState(true);
+
+  const handleTrack = () => {
+    setTrack((e)=>!e);
+  }
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -26,7 +32,25 @@ const Table = () => {
 
   return (
     <div className='p-5'>
+      <center>
+    <div className="flex space-evenly w-60 dark:bg-gray-700 mb-2 p-2 rounded-l-lg rounded-r-lg">
+      <div className={`items-center text-center flex-grow ${track == true ? 'bg-slate-800' :  'dark:bg-gray-700' }  py-2 rounded-l-lg rounded-r-lg`}
+       onClick={handleTrack}
+      >
+        Student
+      </div>
+
+      <div className={`items-center text-center flex-grow ${track == false ? 'bg-slate-800' :  'dark:bg-gray-700'} py-2 rounded-l-lg rounded-r-lg`}
+        onClick={handleTrack}
+      >
+        Staff
+      </div>
+   </div>
+   </center>
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+
+   
+
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
