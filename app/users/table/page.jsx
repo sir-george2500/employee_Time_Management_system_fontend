@@ -42,8 +42,8 @@ const Table = () => {
       }
       try {
         const data = await getRequest('currentDay_data', 'POST',user_data);
-
-        setResponseData(data);
+        
+        setResponseDataForStudent(data);
       } catch (error) {
         setError(error.message);
       }
