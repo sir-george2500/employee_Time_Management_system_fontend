@@ -4,6 +4,7 @@ import getRequest from '@/app/services/getRequest';
 
 const Table = () => {
   const [responseData, setResponseData] = useState(null);
+  const [responseDataForStudent,setResponseDataForStudent] = useState(null);
   const [error, setError] = useState(null);
 
   const [track,setTrack] = useState(true);
@@ -12,10 +13,17 @@ const Table = () => {
     setTrack((e)=>!e);
   }
 
+  //Get the staff data 
   useEffect(() => {
     const getData = async () => {
+
+      const user_data = {
+        role:"staff"
+      }
       try {
-        const data = await getRequest('currentDay_data', 'POST');
+        const data = await getRequest('currentDay_data', 'POST',user_data);
+
+        console.log(data);
         setResponseData(data);
       } catch (error) {
         setError(error.message);
@@ -23,6 +31,25 @@ const Table = () => {
     };
  // Fetch data when the component mounts
     getData(); 
+  }, []);
+
+  //get the student data 
+   useEffect(() => {
+    const getStudentData = async () => {
+
+      const user_data = {
+        role:"student"
+      }
+      try {
+        const data = await getRequest('currentDay_data', 'POST',user_data);
+
+        setResponseData(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+ // Fetch data when the component mounts
+    getStudentData(); 
   }, []);
 
   const formatUsername = (username) => {
@@ -49,8 +76,7 @@ const Table = () => {
    </center>
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
 
-   
-
+    
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -66,7 +92,9 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-          {responseData &&
+
+          {track == true ?(
+          responseData &&
             responseData.users.map((user, index) => (
               <tr
                 key={index}
@@ -80,9 +108,30 @@ const Table = () => {
                 <td className="px-6 py-4">{user.userTimeIn}</td>
                 <td className="px-6 py-4">{user.userTimeOut}</td>
               </tr>
-            ))}
+            ))
+
+          ):(
+
+            responseDataForStudent &&
+              responseDataForStudent.users.map((user, index) => (
+                <tr
+                  key={index}
+                  className={`${
+                    index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                  } border-b dark:bg-gray-900 dark:border-gray-700`}
+                >
+                  <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {formatUsername(user.username)} 
+                  </td>
+                  <td className="px-6 py-4">{user.userTimeIn}</td>
+                  <td className="px-6 py-4">{user.userTimeOut}</td>
+                </tr>
+              ))
+          )} 
+         
         </tbody>
-      </table>
+      </table> 
+
       {error && <p>Error: {error}</p>}
     </div>
     </div>

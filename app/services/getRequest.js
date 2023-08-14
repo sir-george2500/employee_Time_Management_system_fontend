@@ -3,7 +3,7 @@
  * @param {*} endpoint 
  * @param {*} method 
  * @param {*} body 
- * @returns 
+ * @returns -> [] of data
  */
 
 const getRequest = async (endpoint, method, body = null) => {
