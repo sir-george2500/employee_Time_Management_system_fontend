@@ -6,7 +6,7 @@ import React from 'react'
 const AdminForm = ({name, text, value, errorMessage, onChange,formik }) => {
   return (
     <>
-    <h1>Login as Admin</h1>
+    <h1 className='mb-4 font-bold'>Login as Admin</h1>
     <div>
     <TextInput
     name={name}
