@@ -11,7 +11,7 @@ const AdminForm = ({name, text, value, errorMessage, onChange,formik }) => {
     <TextInput
     name={name}
     label={"username *"}
-    placeholder='Please enter your username'
+    placeholder='username'
     leftIcon={mdiAccount}
     value={value}
     onChange={onChange}
@@ -21,7 +21,7 @@ const AdminForm = ({name, text, value, errorMessage, onChange,formik }) => {
     <TextInput
     name={name}
     label={"Password *"}
-    placeholder='Please Enter your password'
+    placeholder='password'
     leftIcon={mdiLock}
     rightIcon={mdiEye}
     value={value}
