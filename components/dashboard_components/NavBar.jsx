@@ -11,7 +11,7 @@ const Navbar = () => {
           <a href="/" className="text-white text-2xl font-bold">
          
         <Image
-          src={require("../public/image/svl_logo.png")}
+          src={require("../../public/image/svl_logo.png")}
           width={50}
           height={50}
           className='flex-initial mr-4'
