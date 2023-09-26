@@ -1,3 +1,4 @@
+"use client"
 import AdminForm from '@/components/AdminForm'
 import DashboardView from '@/components/dashboard_components/DashboardView'
 import Navbar from '@/components/dashboard_components/NavBar'
