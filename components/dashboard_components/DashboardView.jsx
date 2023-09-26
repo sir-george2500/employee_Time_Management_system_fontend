@@ -7,21 +7,25 @@ const DashboardView = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Widget 1 */}
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-bold mb-4">Widget 1</h2>
+            <h2 className="text-xl font-bold mb-4 text-stone-900">Widget 1</h2>
             {/* Add widget content here */}
           </div>
 
           {/* Widget 2 */}
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-bold mb-4">Widget 2</h2>
+            <h2 className="text-xl font-bold mb-4 text-stone-900">Widget 2</h2>
             {/* Add widget content here */}
           </div>
 
           {/* Widget 3 */}
           <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-bold mb-4">Widget 3</h2>
+            <h2 className="text-xl font-bold mb-4 text-stone-900">Widget 3</h2>
             {/* Add widget content here */}
           </div>
+        </div>
+
+        <div className="bg-white mt-2 p-6 min-h-[29.5rem] rounded-lg shadow-md">
+          {/* Content of the element */}
         </div>
       </div>
     </div>
